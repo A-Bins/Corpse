@@ -1,0 +1,10 @@
+Region-is-use?: true
+Region-name?:
+  - corpse
+
+#like is use!
+#Region-is-use? : false/true
+#Region-name? :
+#- corpse
+#- A_bins
+#- DDang_

@@ -1,0 +1,10 @@
+name: Corpse
+version: 0.0.26
+main: com.bins.corpse.Corpse
+api-version: 1.16
+authors: [ A_bins ]
+depend: [ProtocolLib, Citizens, WorldGuard]
+commands:
+  reload-config-corpse:
+
+
