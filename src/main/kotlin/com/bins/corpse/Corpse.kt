@@ -8,6 +8,7 @@ import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.PolarBear
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.plugin.java.JavaPlugin
+import java.util.*
 
 
 class Corpse : JavaPlugin() {

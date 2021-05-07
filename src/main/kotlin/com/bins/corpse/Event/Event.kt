@@ -97,13 +97,14 @@ class Event : Listener {
     fun onDamage(e: EntityDamageEvent) {
         if (e.entity.type != EntityType.POLAR_BEAR)
             return
-        if(e.entity.customName?.contains("시체") == false)
+        if(e.entity.customName?.contains("시체") != true)
             return
         e.isCancelled = true
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     fun onDead(e: PlayerDeathEvent) {
+        e.isCancelled
         val p = e.entity
         val loc = Location(
             e.entity.world,
