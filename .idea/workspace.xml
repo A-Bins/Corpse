@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9f015ad-0c55-4f29-8356-5caa34cf23c4" name="디폴트 변경 목록" comment="본격적으로 시작!">
+    <list default="true" id="e9f015ad-0c55-4f29-8356-5caa34cf23c4" name="디폴트 변경 목록" comment="시체 생성 로직 간결하게 변경 및 불필요한 해쉬맵 삭제">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Corpse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Corpse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/Event.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseHit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseHit.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseOpen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseOpen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/structure/classes/Corpses.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/structure/classes/Corpses.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -238,7 +234,7 @@
       <workItem from="1621495389556" duration="21000" />
       <workItem from="1621497247681" duration="6000" />
       <workItem from="1623312041425" duration="31000" />
-      <workItem from="1623739848648" duration="4484000" />
+      <workItem from="1623739848648" duration="5260000" />
     </task>
     <task id="LOCAL-00001" summary="read me 추가">
       <created>1617006063156</created>
@@ -268,7 +264,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623742524832</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="시체 생성 로직 간결하게 변경 및 불필요한 해쉬맵 삭제">
+      <created>1623745090926</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1623745090926</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -294,7 +297,8 @@
     <MESSAGE value="북극곰이 안때려지는 버그 픽스" />
     <MESSAGE value="레거시 Corpse 플러그인을 유지보수중." />
     <MESSAGE value="본격적으로 시작!" />
-    <option name="LAST_COMMIT_MESSAGE" value="본격적으로 시작!" />
+    <MESSAGE value="시체 생성 로직 간결하게 변경 및 불필요한 해쉬맵 삭제" />
+    <option name="LAST_COMMIT_MESSAGE" value="시체 생성 로직 간결하게 변경 및 불필요한 해쉬맵 삭제" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
