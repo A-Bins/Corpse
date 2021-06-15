@@ -96,7 +96,7 @@ class Corpses {
             bear.remove()
         }
         fun spawn() {
-            corpse.spawn(spawn.add(0.0, 1.0, 0.0))
+            corpse.spawn(spawn)
             corpse.data()[NPC.NAMEPLATE_VISIBLE_METADATA] = false
             (corpse.entity as Player).gameMode = GameMode.CREATIVE
             sleep()

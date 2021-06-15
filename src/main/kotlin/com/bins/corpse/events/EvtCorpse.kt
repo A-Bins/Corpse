@@ -81,7 +81,10 @@ class EvtCorpse : Listener {
                 CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, p.name),
                 p.inventory.heldItemSlot,
                 itemInHand,
-                bearLoc,
+                bearLoc.add(0.0, 1.0, 0.0).apply {
+                    pitch = 0f
+                    yaw = 0f
+                },
                 inventory
             )
             corpse.spawn()
