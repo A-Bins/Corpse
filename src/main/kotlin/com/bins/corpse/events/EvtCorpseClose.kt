@@ -18,19 +18,12 @@ class EvtCorpseClose : Listener{
                     a++
             }
             if (a == 45) {
-                val str = e.view.title.split(", ".toRegex()).toTypedArray()[1]
-                val i = str.toInt()
-                if (!Corpse.corpse.corpseInventory.containsKey(i)) return
+                val i = e.view.title.split(", ".toRegex()).toTypedArray()[1].toInt()
                 for (w in e.player.world.entities) {
                     if (w.entityId == i) {
-                        Corpse.corpse.idByNPCs[i]!!.destroy()
-                        Corpse.corpse.corpses.remove(Corpse.corpse.idByNPCs[i])
-                        Corpse.corpse.corpseInventory.remove(i)
-                        Corpse.corpse.corpseItems.remove(i)
-                        Corpse.corpse.corpseHand.remove(i)
-                        Corpse.corpse.npcByIds.remove(Corpse.corpse.idByNPCs[i])
-                        Corpse.corpse.idByNPCs.remove(i)
-                        w.remove()
+                        Corpse.corpse.corpses.stream().filter { it.bear.entityId == w.entityId }.forEach {
+                            it.destroy()
+                        }
                     }
                 }
                 val array = ArrayList<HumanEntity>()

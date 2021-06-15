@@ -24,13 +24,7 @@ import kotlin.collections.HashMap
 class Corpses {
 
     val corpses = ArrayList<BukkitCorpse>()
-    val idByNPCs = HashMap<Int, NPC>()
     val isRightClicks = HashMap<UUID, Boolean>()
-    val npcByIds = HashMap<NPC, Int>()
-    val hasSchedule = HashMap<NPC, Boolean>()
-    val corpseHand = HashMap<Int, Int>()
-    val corpseItems = HashMap<Int, ArrayList<ItemStack>>()
-    val corpseInventory = HashMap<Int, Inventory>()
     fun disable(){
         corpses.forEach {
             it.corpse.destroy()
