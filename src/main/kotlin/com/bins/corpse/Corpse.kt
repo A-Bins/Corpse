@@ -1,25 +1,22 @@
 package com.bins.corpse
 
 import com.bins.corpse.Event.Event
+import com.bins.corpse.structure.classes.Corpses
 import org.bukkit.Bukkit
 import org.bukkit.Location
-import org.bukkit.entity.EntityType
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.PolarBear
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.plugin.java.JavaPlugin
-import java.util.*
 
 
 class Corpse : JavaPlugin() {
     override fun onEnable() {
-        server.getPluginCommand("reload-config-corpse")!!.setExecutor(reCon())
-        saveDefaultConfig()
-        Bukkit.getLogger().info("§a땅님을 위한 평범하고 평범한 전쟁스러운 시체가 나도는 시체플러그인이 활성화되써요오!!")
         server.pluginManager.registerEvents(Event(), this)
         instance = this
-        entityHider =
-            EntityHider(this, EntityHider.Policy.BLACKLIST)
+        getCommand("reload-config-corpse")!!.setExecutor(ReloadConfig())
+        saveDefaultConfig()
+        Bukkit.getLogger().info("§a땅님을 위한 평범하고 평범한 전쟁스러운 시체가 나도는 시체플러그인이 활성화되써요오!!")
         Bukkit.getScheduler().runTaskTimer(this, Runnable {
             for (p in Bukkit.getOnlinePlayers()) {
                 Variables.IsRightClick.putIfAbsent(p.uniqueId, false)
@@ -83,20 +80,12 @@ class Corpse : JavaPlugin() {
 
     override fun onDisable() {
         Bukkit.getLogger().info("§c땅님을 위한 평범하고 평범한 전쟁스러운 시체가 나도는 시체플러그인이 비활성화되써요오!!")
-        for (n in Variables.Corpses) {
-            n.destroy()
-        }
-        for (e in Bukkit.getWorld("world")!!.entities) {
-            if (e.type == EntityType.POLAR_BEAR) {
-                if (e.customName!!.contains("시체")) {
-                    e.remove()
-                }
-            }
-        }
+        corpse.disable()
     }
 
     companion object {
         lateinit var instance: Corpse
-        lateinit var entityHider: EntityHider
+         private set
+        val corpse = Corpses()
     }
 }

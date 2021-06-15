@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9f015ad-0c55-4f29-8356-5caa34cf23c4" name="디폴트 변경 목록" comment="read me 추가">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries-with-intellij-classes.xml" afterDir="false" />
+    <list default="true" id="e9f015ad-0c55-4f29-8356-5caa34cf23c4" name="디폴트 변경 목록" comment="북극곰이 안때려지는 버그 픽스">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/structure/classes/Corpses.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Corpse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Corpse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/EntityHider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/EntityHider.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Event/Event.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Event/Event.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Variables.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/reCon.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/ReloadConfig.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +64,13 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -99,6 +106,17 @@
     </key>
   </component>
   <component name="RunManager" selected="Gradle.Corpse [build]">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Corpse [build]" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -200,7 +218,15 @@
       <workItem from="1620376309500" duration="114000" />
       <workItem from="1620376822682" duration="132000" />
       <workItem from="1620382707354" duration="538000" />
-      <workItem from="1620386212556" duration="516000" />
+      <workItem from="1620386212556" duration="1816000" />
+      <workItem from="1620464041195" duration="601000" />
+      <workItem from="1620478053723" duration="1520000" />
+      <workItem from="1620481629758" duration="3000" />
+      <workItem from="1620481784920" duration="3000" />
+      <workItem from="1621495389556" duration="21000" />
+      <workItem from="1621497247681" duration="6000" />
+      <workItem from="1623312041425" duration="31000" />
+      <workItem from="1623739848648" duration="1268000" />
     </task>
     <task id="LOCAL-00001" summary="read me 추가">
       <created>1617006063156</created>
@@ -209,7 +235,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617006063156</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="북극곰이 안때려지는 버그 픽스">
+      <created>1620386743624</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1620386743624</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -232,7 +265,8 @@
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
     <MESSAGE value="read me 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="read me 추가" />
+    <MESSAGE value="북극곰이 안때려지는 버그 픽스" />
+    <option name="LAST_COMMIT_MESSAGE" value="북극곰이 안때려지는 버그 픽스" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
