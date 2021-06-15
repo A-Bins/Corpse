@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="Corpse">
-    <output-path>$USER_HOME$/바탕 화면/모음지이이입/버킷 모음지이입/Project CKD 1.16.4/plugins</output-path>
-    <root id="archive" name="Corpse.jar">
-      <element id="module-output" name="Corpse.main" />
-    </root>
-  </artifact>
-</component>
