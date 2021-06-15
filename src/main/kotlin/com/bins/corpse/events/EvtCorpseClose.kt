@@ -19,22 +19,17 @@ class EvtCorpseClose : Listener{
             }
             if (a == 45) {
                 val i = e.view.title.split(", ".toRegex()).toTypedArray()[1].toInt()
-                for (w in e.player.world.entities) {
+                e.player.world.entities.forEach { w ->
                     if (w.entityId == i) {
                         Corpse.corpse.corpses.stream().filter { it.bear.entityId == w.entityId }.forEach {
                             it.destroy()
                         }
                     }
                 }
-                val array = ArrayList<HumanEntity>()
-                for (entity in e.viewers) {
-                    if (entity is Player) {
-                        if (e.player !== entity) {
-                            array.add(entity)
-                        }
-                    }
+                e.viewers.forEach {
+                    if(it.name == e.player.name) return@forEach
+                    it.closeInventory()
                 }
-                array.forEach { obj: HumanEntity -> obj.closeInventory() }
             }
         }
     }

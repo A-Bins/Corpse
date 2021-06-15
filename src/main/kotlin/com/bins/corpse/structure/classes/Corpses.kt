@@ -63,7 +63,6 @@ class Corpses {
             corpses.forEach { corpse ->
 
                 corpse.inventory.viewers.forEach { p ->
-                    val id = p.openInventory.title.split(", ".toRegex()).toTypedArray()[1].toInt()
                     p.openInventory.topInventory.contents.withIndex().forEach { (w, a) ->
                         corpse.inventory.setItem(w, a)
                         if (corpse.hand == w) {
@@ -88,7 +87,7 @@ class Corpses {
         }, 0, 1)
     }
 
-    class BukkitCorpse(val bear: PolarBear, val corpse: NPC, val hand: Int, var handItem: ItemStack, val spawn: Location, val inventory: Inventory){
+    class BukkitCorpse(val bear: PolarBear, val corpse: NPC, val hand: Int, val handItem: ItemStack, val spawn: Location, val inventory: Inventory){
         init {
             Corpse.corpse.corpses.add(this)
         }
@@ -97,14 +96,13 @@ class Corpses {
             bear.remove()
         }
         fun spawn() {
-            corpse.spawn(spawn)
+            corpse.spawn(spawn.add(0.0, 1.0, 0.0))
             corpse.data()[NPC.NAMEPLATE_VISIBLE_METADATA] = false
             (corpse.entity as Player).gameMode = GameMode.CREATIVE
             sleep()
             (corpse.entity as LivingEntity).equipment?.setItem(EquipmentSlot.HAND, handItem)
         }
         fun equip() {
-
             inventory.withIndex().forEach { (i, v) ->
                 when (i) {
                     36 -> (corpse.entity as LivingEntity).equipment!!.setItem(EquipmentSlot.FEET, v)
@@ -119,14 +117,14 @@ class Corpses {
         }
         fun sleep() {
             val pm = ProtocolLibrary.getProtocolManager()
-            val dw = WrappedDataWatcher.getEntityWatcher(bear)
+            val dw = WrappedDataWatcher.getEntityWatcher(corpse.entity)
             val packet = pm.createPacket(PacketType.Play.Server.ENTITY_METADATA)
             val obj = WrappedDataWatcher.WrappedDataWatcherObject(
                 6,
                 WrappedDataWatcher.Registry.get(EnumWrappers.getEntityPoseClass())
             )
             dw.setObject(obj, EnumWrappers.EntityPose.SLEEPING.toNms())
-            packet.integers.write(0, bear.entityId)
+            packet.integers.write(0, corpse.entity.entityId)
             packet.watchableCollectionModifier.write(0, dw.watchableObjects)
             Bukkit.getOnlinePlayers().forEach {
                 pm.sendServerPacket(it, packet)

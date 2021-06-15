@@ -53,7 +53,10 @@ class EvtCorpse : Listener {
             return true
         }
         if(!check()) return
-
+        e.keepInventory = true
+        val list = p.inventory.contents
+        val itemInHand = p.inventory.itemInMainHand
+        p.inventory.clear()
         e.drops.clear()
         Bukkit.getScheduler().runTaskLater(Corpse.instance, Runnable {
             val bearLoc = loc.clone().add(Location(loc.world, -0.7, (-1).toDouble(), 0.toDouble())).apply {
@@ -68,13 +71,18 @@ class EvtCorpse : Listener {
                 isSilent = true
                 isInvulnerable = true
             }
+            val inventory = Bukkit.createInventory(null, 45, "${p.name}의 시체, ${bear.entityId}").apply {
+                list.withIndex().forEach { (index, item) ->
+                    setItem(index, item)
+                }
+            }
             val corpse = Corpses.BukkitCorpse(
                 bear,
                 CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, p.name),
                 p.inventory.heldItemSlot,
-                p.inventory.itemInMainHand,
-                loc,
-                e.entity.inventory
+                itemInHand,
+                bearLoc,
+                inventory
             )
             corpse.spawn()
 

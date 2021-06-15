@@ -19,6 +19,7 @@ class EvtCorpseOpen : Listener {
             if (e.rightClicked !is PolarBear) return false
             if (e.rightClicked.customName == null) return false
             if (!Corpse.corpse.isRightClicks.containsKey(uuid)) return false
+            if (Corpse.corpse.isRightClicks[uuid]!!) return false
             if (!Corpse.corpse.corpses.stream().anyMatch { it.bear.entityId == id }) return false
             if (!e.rightClicked.customName!!.contains("시체")) return false
             return true
@@ -30,7 +31,6 @@ class EvtCorpseOpen : Listener {
             Runnable { Corpse.corpse.isRightClicks[uuid] = false }, 1
         )
         e.player.openInventory(Corpse.corpse.corpses.stream().filter { it.bear.entityId == id }.collect(Collectors.toList())[0].inventory)
-
         e.isCancelled = true
     }
 }
