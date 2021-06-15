@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerInteractEntityEvent
+import java.util.stream.Collectors
 
 class EvtCorpseOpen : Listener {
 
@@ -18,8 +19,7 @@ class EvtCorpseOpen : Listener {
             if (e.rightClicked !is PolarBear) return false
             if (e.rightClicked.customName == null) return false
             if (!Corpse.corpse.isRightClicks.containsKey(uuid)) return false
-            if (!Corpse.corpse.corpseItems.containsKey(id)) return false
-            if (Corpse.corpse.corpseInventory[id] != null)  return false
+            if (!Corpse.corpse.corpses.stream().anyMatch { it.bear.entityId == id }) return false
             if (!e.rightClicked.customName!!.contains("시체")) return false
             return true
         }
@@ -29,11 +29,7 @@ class EvtCorpseOpen : Listener {
             Corpse.instance,
             Runnable { Corpse.corpse.isRightClicks[uuid] = false }, 1
         )
-        Corpse.corpse.corpseInventory[id] = Bukkit.createInventory(null, 45, e.rightClicked.customName + ", " + id)
-        Corpse.corpse.corpseItems[id]!!.withIndex().forEach{ (a, i) ->
-            Corpse.corpse.corpseInventory[id]!!.setItem(a, i)
-        }
-        e.player.openInventory(Corpse.corpse.corpseInventory[id]!!)
+        e.player.openInventory(Corpse.corpse.corpses.stream().filter { it.bear.entityId == id }.collect(Collectors.toList())[0].inventory)
 
         e.isCancelled = true
     }

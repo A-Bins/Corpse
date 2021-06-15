@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9f015ad-0c55-4f29-8356-5caa34cf23c4" name="디폴트 변경 목록" comment="OOP로 수정 완료">
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseClose.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseClose.kt" afterDir="false" />
+    <list default="true" id="e9f015ad-0c55-4f29-8356-5caa34cf23c4" name="디폴트 변경 목록" comment="close 수정 완료">
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseOpen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseOpen.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +232,7 @@
       <workItem from="1621495389556" duration="21000" />
       <workItem from="1621497247681" duration="6000" />
       <workItem from="1623312041425" duration="31000" />
-      <workItem from="1623739848648" duration="6533000" />
+      <workItem from="1623739848648" duration="6849000" />
     </task>
     <task id="LOCAL-00001" summary="read me 추가">
       <created>1617006063156</created>
@@ -290,7 +290,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623747065261</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="close 수정 완료">
+      <created>1623747301087</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1623747301087</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,7 +327,8 @@
     <MESSAGE value="구현부 로직 for를 forEach로~ 화성 갈끄니까~" />
     <MESSAGE value="이 코드 누가짰죠 극혐!이비낟!!!!!" />
     <MESSAGE value="OOP로 수정 완료" />
-    <option name="LAST_COMMIT_MESSAGE" value="OOP로 수정 완료" />
+    <MESSAGE value="close 수정 완료" />
+    <option name="LAST_COMMIT_MESSAGE" value="close 수정 완료" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
