@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9f015ad-0c55-4f29-8356-5caa34cf23c4" name="디폴트 변경 목록" comment="북극곰이 안때려지는 버그 픽스">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/structure/classes/Corpses.kt" afterDir="false" />
+    <list default="true" id="e9f015ad-0c55-4f29-8356-5caa34cf23c4" name="디폴트 변경 목록" comment="레거시 Corpse 플러그인을 유지보수중.">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpse.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseClose.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseHit.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseOpen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Corpse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Corpse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Event/Event.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Event/Event.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Variables.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/reCon.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/ReloadConfig.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Event/Event.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/Event.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,6 +99,9 @@
     <property name="settings.editor.selected.configurable" value="preferences.language.Kotlin" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.bins.corpse.structure.objects" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
@@ -226,7 +230,7 @@
       <workItem from="1621495389556" duration="21000" />
       <workItem from="1621497247681" duration="6000" />
       <workItem from="1623312041425" duration="31000" />
-      <workItem from="1623739848648" duration="1268000" />
+      <workItem from="1623739848648" duration="1929000" />
     </task>
     <task id="LOCAL-00001" summary="read me 추가">
       <created>1617006063156</created>
@@ -242,7 +246,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620386743624</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="레거시 Corpse 플러그인을 유지보수중.">
+      <created>1623741999776</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1623741999776</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -266,7 +277,8 @@
     </ignored-roots>
     <MESSAGE value="read me 추가" />
     <MESSAGE value="북극곰이 안때려지는 버그 픽스" />
-    <option name="LAST_COMMIT_MESSAGE" value="북극곰이 안때려지는 버그 픽스" />
+    <MESSAGE value="레거시 Corpse 플러그인을 유지보수중." />
+    <option name="LAST_COMMIT_MESSAGE" value="레거시 Corpse 플러그인을 유지보수중." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

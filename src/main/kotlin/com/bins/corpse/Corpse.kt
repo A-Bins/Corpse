@@ -1,6 +1,7 @@
 package com.bins.corpse
 
-import com.bins.corpse.Event.Event
+import com.bins.corpse.events.Event
+import com.bins.corpse.events.EvtCorpse
 import com.bins.corpse.structure.classes.Corpses
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -12,11 +13,17 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class Corpse : JavaPlugin() {
     override fun onEnable() {
-        server.pluginManager.registerEvents(Event(), this)
         instance = this
-        getCommand("reload-config-corpse")!!.setExecutor(ReloadConfig())
         saveDefaultConfig()
-        Bukkit.getLogger().info("§a땅님을 위한 평범하고 평범한 전쟁스러운 시체가 나도는 시체플러그인이 활성화되써요오!!")
+        server.pluginManager.apply {
+             EvtCorpse.objects.forEach {
+                 registerEvents(it, this@Corpse)
+             }
+        }
+        getCommand("reload-config-corpse")!!.setExecutor(ReloadConfig())
+
+        Bukkit.getLogger().info("§a평범한 시체가 나도는 시체플러그인이 활성화되씀!")
+
         Bukkit.getScheduler().runTaskTimer(this, Runnable {
             for (p in Bukkit.getOnlinePlayers()) {
                 Variables.IsRightClick.putIfAbsent(p.uniqueId, false)

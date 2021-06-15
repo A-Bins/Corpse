@@ -1,4 +1,4 @@
-package com.bins.corpse.Event
+package com.bins.corpse.events
 
 import com.comphenix.protocol.PacketType
 import com.comphenix.protocol.ProtocolLibrary
@@ -32,63 +32,26 @@ import java.util.function.Consumer
 import java.util.stream.Collectors
 
 class Event : Listener {
-    @EventHandler
-    fun onClose(e: InventoryCloseEvent) {
-        if (e.view.title.contains("시체")) {
-            var a = 0
-            for (i in e.view.topInventory.contents) {
-                if (i == null) {
-                    a++
-                }
-            }
-            if (a == 45) {
-                val str = e.view.title.split(", ".toRegex()).toTypedArray()[1]
-                val i = str.toInt()
-                if (!Variables.CorpsesInventory.containsKey(i)) return
-                for (w in e.player.world.entities) {
-                    if (w.entityId == i) {
-                        Variables.CorpsesEntityID[i]!!.destroy()
-                        Variables.Corpses.remove(Variables.CorpsesEntityID[i])
-                        Variables.CorpsesInventory.remove(i)
-                        Variables.CorpsesItemStack.remove(i)
-                        Variables.CorpsesLocation.remove(i)
-                        Variables.CorpsesGetEntityID.remove(Variables.CorpsesEntityID[i])
-                        Variables.CorpsesEntityID.remove(i)
-                        w.remove()
-                    }
-                }
-                val array = ArrayList<HumanEntity>()
-                for (entity in e.viewers) {
-                    if (entity is Player) {
-                        if (e.player !== entity) {
-                            array.add(entity)
-                        }
-                    }
-                }
-                array.forEach(Consumer { obj: HumanEntity -> obj.closeInventory() })
-            }
-        }
-    }
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     fun onRightClick(e: PlayerInteractEntityEvent) {
         if (e.rightClicked !is PolarBear) return
         if (e.rightClicked.customName == null) return
-        if (!Variables.IsRightClick.containsKey(e.player.uniqueId)) return
-        if (!Variables.CorpsesItemStack.containsKey(e.rightClicked.entityId)) return
-        Variables.IsRightClick[e.player.uniqueId] = true
+        if (!IsRightClick.containsKey(e.player.uniqueId)) return
+        if (!Corpse.corpse.corpseItems.containsKey(e.rightClicked.entityId)) return
+        IsRightClick[e.player.uniqueId] = true
         Bukkit.getScheduler().runTaskLater(
             Corpse.instance,
-            Runnable { Variables.IsRightClick[e.player.uniqueId] = false }, 1
+            Runnable { IsRightClick[e.player.uniqueId] = false }, 1
         )
         e.isCancelled = true
         if (e.rightClicked.customName!!.contains("시체")) {
-            if (Variables.CorpsesInventory[e.rightClicked.entityId] == null) {
-                Variables.CorpsesInventory[e.rightClicked.entityId] = Bukkit.createInventory(null, 45, e.rightClicked.customName + ", " + e.rightClicked.entityId)
-                for ((a, i) in Variables.CorpsesItemStack[e.rightClicked.entityId]!!.withIndex()) {
-                    Variables.CorpsesInventory[e.rightClicked.entityId]!!.setItem(a, i)
+            if (Corpse.corpse.corpseInventory[e.rightClicked.entityId] == null) {
+                Corpse.corpse.corpseInventory[e.rightClicked.entityId] = Bukkit.createInventory(null, 45, e.rightClicked.customName + ", " + e.rightClicked.entityId)
+                for ((a, i) in Corpse.corpse.corpseItems[e.rightClicked.entityId]!!.withIndex()) {
+                    Corpse.corpse.corpseInventory[e.rightClicked.entityId]!!.setItem(a, i)
                 }
             }
-            e.player.openInventory(Variables.CorpsesInventory[e.rightClicked.entityId]!!)
+            e.player.openInventory(Corpse.corpse.corpseInventory[e.rightClicked.entityId]!!)
         }
     }
 
@@ -103,16 +66,8 @@ class Event : Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     fun onDead(e: PlayerDeathEvent) {
-        e.isCancelled
         val p = e.entity
-        val loc = Location(
-            e.entity.world,
-            e.entity.location.x,
-            e.entity.location.y,
-            e.entity.location.z,
-            0f,
-            0f
-        )
+        val loc = Location(e.entity.world, e.entity.location.x, e.entity.location.y, e.entity.location.z, 0f, 0f)
         if (Corpse.instance.config.getBoolean("Region-is-use?")) {
             val container = WorldGuard.getInstance().platform.regionContainer
             val regionManager = container[BukkitAdapter.adapt(p.world)]
@@ -141,7 +96,7 @@ class Event : Listener {
         val npc = registry.createNPC(EntityType.PLAYER, e.entity.name)
         Bukkit.getScheduler().runTaskLater(Corpse.instance, Runnable {
             npc.spawn(loc)
-            Variables.Corpses.add(npc)
+            Corpse.corpse.corpses.add(npc)
             npc.data()[NPC.NAMEPLATE_VISIBLE_METADATA] = false
             (npc.entity as Player).gameMode = GameMode.CREATIVE
             setSleePing(npc.entity)
@@ -169,7 +124,7 @@ class Event : Listener {
                 for ((i, `$`) in inv.withIndex()) {
                     array.add(`$`)
                     if (slot == i) {
-                        Variables.CorpsesLocation[pb.entityId] = i
+                        Corpse.corpse.corpseHand[pb.entityId] = i
                     }
                     when (i) {
                         36 -> (npc.entity as LivingEntity).equipment!!
@@ -185,7 +140,7 @@ class Event : Listener {
                     }
                 }
             }, 5)
-            Variables.runTaskStop[npc] = false
+            Corpse.corpse.hasSchedule[npc] = false
             object : BukkitRunnable() {
                 override fun run() {
                     if (npc.entity.pose != Pose.SLEEPING) {
@@ -205,27 +160,27 @@ class Event : Listener {
                             }
                         }
                         cancel()
-                    } else if (Variables.runTaskStop[npc]!!) {
+                    } else if (Corpse.corpse.hasSchedule[npc]!!) {
                         cancel()
                     }
                 }
             }.runTaskTimer(Corpse.instance, 0, 1)
             object : BukkitRunnable() {
                 override fun run() {
-                    Variables.runTaskStop[npc] = true
+                    Corpse.corpse.hasSchedule[npc] = true
                 }
             }.runTaskLater(Corpse.instance, (20 * 5).toLong())
             npc.data()[NPC.NAMEPLATE_VISIBLE_METADATA] = false
-            Variables.CorpsesItemStack[pb.entityId] = array
-            Variables.CorpsesEntityID[pb.entityId] = npc
-            Variables.CorpsesGetEntityID[npc] = pb.entityId
+            Corpse.corpse.corpseItems[pb.entityId] = array
+            Corpse.corpse.idByNPCs[pb.entityId] = npc
+            Corpse.corpse.npcByIds[npc] = pb.entityId
             Bukkit.getScheduler().runTaskLater(Corpse.instance, Runnable {
-                Variables.CorpsesInventory.remove(pb.entityId)
-                Variables.CorpsesEntityID.remove(pb.entityId)
-                Variables.CorpsesItemStack.remove(pb.entityId)
-                Variables.CorpsesLocation.remove(pb.entityId)
-                Variables.Corpses.remove(npc)
-                Variables.CorpsesGetEntityID.remove(npc)
+                Corpse.corpse.corpseInventory.remove(pb.entityId)
+                Corpse.corpse.idByNPCs.remove(pb.entityId)
+                Corpse.corpse.corpseItems.remove(pb.entityId)
+                Corpse.corpse.corpseHand.remove(pb.entityId)
+                Corpse.corpse.corpses.remove(npc)
+                Corpse.corpse.npcByIds.remove(npc)
                 npc.destroy()
                 pb.remove()
             }, (20 * 60 * 5).toLong())
