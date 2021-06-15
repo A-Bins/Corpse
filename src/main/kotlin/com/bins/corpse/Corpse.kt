@@ -1,6 +1,5 @@
 package com.bins.corpse
 
-import com.bins.corpse.events.Event
 import com.bins.corpse.events.EvtCorpse
 import com.bins.corpse.structure.classes.Corpses
 import org.bukkit.Bukkit

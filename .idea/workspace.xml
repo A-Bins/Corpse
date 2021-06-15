@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e9f015ad-0c55-4f29-8356-5caa34cf23c4" name="디폴트 변경 목록" comment="레거시 Corpse 플러그인을 유지보수중.">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpse.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseClose.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseHit.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseOpen.kt" afterDir="false" />
+    <list default="true" id="e9f015ad-0c55-4f29-8356-5caa34cf23c4" name="디폴트 변경 목록" comment="본격적으로 시작!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Corpse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Corpse.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/Event/Event.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/Event.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/Event.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpse.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpse.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseHit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseHit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseOpen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/events/EvtCorpseOpen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/structure/classes/Corpses.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/bins/corpse/structure/classes/Corpses.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +74,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1q1K1Mc4AWAccn8Eveal0D6Yu8N" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -230,7 +238,7 @@
       <workItem from="1621495389556" duration="21000" />
       <workItem from="1621497247681" duration="6000" />
       <workItem from="1623312041425" duration="31000" />
-      <workItem from="1623739848648" duration="1929000" />
+      <workItem from="1623739848648" duration="4484000" />
     </task>
     <task id="LOCAL-00001" summary="read me 추가">
       <created>1617006063156</created>
@@ -253,7 +261,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623741999776</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="본격적으로 시작!">
+      <created>1623742524832</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1623742524832</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,7 +293,8 @@
     <MESSAGE value="read me 추가" />
     <MESSAGE value="북극곰이 안때려지는 버그 픽스" />
     <MESSAGE value="레거시 Corpse 플러그인을 유지보수중." />
-    <option name="LAST_COMMIT_MESSAGE" value="레거시 Corpse 플러그인을 유지보수중." />
+    <MESSAGE value="본격적으로 시작!" />
+    <option name="LAST_COMMIT_MESSAGE" value="본격적으로 시작!" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
