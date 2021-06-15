@@ -46,29 +46,26 @@ class Corpses {
     fun schedule() {
 
         Bukkit.getScheduler().runTaskTimer(Corpse.instance, Runnable {
-            for (inv in Variables.CorpsesInventory.values) {
-                for (p in inv.viewers) {
-                    val str = p.openInventory.title.split(", ".toRegex()).toTypedArray()[1]
-                    val i = str.toInt()
-                    Variables.CorpsesItemStack[i]!!.clear()
-                    val npc = Variables.CorpsesEntityID[i]
-                    for ((w, a) in p.openInventory.topInventory.contents.withIndex()) {
-                        Variables.CorpsesItemStack[i]!!.add(a)
-                        Variables.CorpsesInventory[i]!!.setItem(w, a)
-                        if (Variables.CorpsesLocation[i] == w) {
-                            (npc!!.entity as LivingEntity).equipment!!
+            corpses.forEach { corpse ->
+
+                corpse.inventory.viewers.forEach { p ->
+                    val id = p.openInventory.title.split(", ".toRegex()).toTypedArray()[1].toInt()
+                    p.openInventory.topInventory.contents.withIndex().forEach { (w, a) ->
+                        corpse.inventory.setItem(w, a)
+                        if (corpse. == w) {
+                            (corpse.corpse.entity as LivingEntity).equipment!!
                                 .setItem(EquipmentSlot.HAND, a)
                         }
                         when (w) {
-                            36 -> (npc!!.entity as LivingEntity).equipment!!
+                            36 -> (corpse.corpse.entity as LivingEntity).equipment!!
                                 .setItem(EquipmentSlot.FEET, a)
-                            37 -> (npc!!.entity as LivingEntity).equipment!!
+                            37 -> (corpse.corpse.entity as LivingEntity).equipment!!
                                 .setItem(EquipmentSlot.LEGS, a)
-                            38 -> (npc!!.entity as LivingEntity).equipment!!
+                            38 -> (corpse.corpse.entity as LivingEntity).equipment!!
                                 .setItem(EquipmentSlot.CHEST, a)
-                            39 -> (npc!!.entity as LivingEntity).equipment!!
+                            39 -> (corpse.corpse.entity as LivingEntity).equipment!!
                                 .setItem(EquipmentSlot.HEAD, a)
-                            40 -> (npc!!.entity as LivingEntity).equipment!!
+                            40 -> (corpse.corpse.entity as LivingEntity).equipment!!
                                 .setItem(EquipmentSlot.OFF_HAND, a)
                         }
                     }
@@ -77,7 +74,7 @@ class Corpses {
         }, 0, 1)
     }
 
-    class BukkitCorpse(val bear: PolarBear, val corpse: NPC, var handItem: ItemStack, val spawn: Location, val inventory: MutableList<ItemStack>){
+    class BukkitCorpse(val bear: PolarBear, val corpse: NPC, var handItem: ItemStack, val spawn: Location, val inventory: Inventory){
         init {
             Corpse.corpse.corpses.add(this)
         }
