@@ -71,6 +71,7 @@ class EvtCorpse : Listener {
             val corpse = Corpses.BukkitCorpse(
                 bear,
                 CitizensAPI.getNPCRegistry().createNPC(EntityType.PLAYER, p.name),
+                p.inventory.heldItemSlot,
                 p.inventory.itemInMainHand,
                 loc,
                 e.entity.inventory

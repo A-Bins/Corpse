@@ -43,16 +43,36 @@ class Corpses {
             }
         }
     }
+    fun teleport() {
+
+        Bukkit.getScheduler().runTaskTimer(Corpse.instance, Runnable {
+            corpses.forEach {
+
+                val bear = it.corpse.entity.location.clone().add(
+                    Location(
+                        it.corpse.entity.world, -0.7,
+                        (-1).toDouble(), 0.toDouble()
+                    )
+                )
+                bear.pitch = 0f
+                bear.yaw = 90f
+                it.bear.teleport(bear)
+            }
+        }, 0, 5)
+    }
     fun schedule() {
 
         Bukkit.getScheduler().runTaskTimer(Corpse.instance, Runnable {
+            Bukkit.getOnlinePlayers().forEach {
+                isRightClicks.putIfAbsent(it.uniqueId, false)
+            }
             corpses.forEach { corpse ->
 
                 corpse.inventory.viewers.forEach { p ->
                     val id = p.openInventory.title.split(", ".toRegex()).toTypedArray()[1].toInt()
                     p.openInventory.topInventory.contents.withIndex().forEach { (w, a) ->
                         corpse.inventory.setItem(w, a)
-                        if (corpse. == w) {
+                        if (corpse.hand == w) {
                             (corpse.corpse.entity as LivingEntity).equipment!!
                                 .setItem(EquipmentSlot.HAND, a)
                         }
@@ -74,7 +94,7 @@ class Corpses {
         }, 0, 1)
     }
 
-    class BukkitCorpse(val bear: PolarBear, val corpse: NPC, var handItem: ItemStack, val spawn: Location, val inventory: Inventory){
+    class BukkitCorpse(val bear: PolarBear, val corpse: NPC, val hand: Int, var handItem: ItemStack, val spawn: Location, val inventory: Inventory){
         init {
             Corpse.corpse.corpses.add(this)
         }
