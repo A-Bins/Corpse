@@ -3,7 +3,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 plugins {
     id 'idea'
     id 'org.jetbrains.kotlin.jvm' version '1.5.0'
-    id 'com.github.johnrengelman.shadow' version '2.0.4'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
 shadowJar {
@@ -31,7 +31,7 @@ repositories {
     }
     maven {
         name = 'everything'
-        url = 'http://repo.citizensnpcs.co/'
+        url = 'https://repo.citizensnpcs.co/'
     }
     maven {
         name = 'sonatype'

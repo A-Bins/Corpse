@@ -33,6 +33,9 @@ class EvtCorpse : Listener {
     }
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     fun onDead(e: PlayerDeathEvent) {
+
+
+
         val p = e.entity
         val loc = Location(p.world, p.location.x, p.location.y, p.location.z, 0f, 0f)
         fun check(): Boolean {
