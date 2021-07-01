@@ -1,6 +1,7 @@
 package com.bins.corpse.events
 
 import com.bins.corpse.Corpse
+import com.bins.corpse.structure.classes.Corpses
 import org.bukkit.entity.HumanEntity
 import org.bukkit.entity.Player
 import org.bukkit.entity.PolarBear
@@ -13,26 +14,21 @@ class EvtCorpseClose : Listener{
     @EventHandler
     fun onClose(e: InventoryCloseEvent) {
         if (e.view.title.contains("시체")) {
-            var a = 0
-            e.view.topInventory.contents.forEach {
-                if (it == null)
-                    a++
-            }
-            if (a == 45) {
-                val i = e.view.title.split(", ".toRegex()).toTypedArray()[1].toInt()
-                e.player.world.getEntitiesByClass(PolarBear::class.java).forEach { w ->
-                    if (w.entityId == i) {
-                        Corpse.corpse.corpses.stream().filter { it.bear.entityId == w.entityId }.forEach {
-                            it.destroy()
-                        }
-                    }
+            val nullSize = e.view.topInventory.contents.filter { it == null }.size
+            if (nullSize == 45) {
+                val id = e.view.title.split(", ").toTypedArray()[1].toInt()
+                lateinit var corpse: Corpses.BukkitCorpse
+                e.player.world.getEntitiesByClass(PolarBear::class.java).filter { it.entityId == id }.forEach { w ->
+                    corpse = Corpse.corpse.corpses.stream().filter { it.bear.entityId == w.entityId }.toArray()[0] as Corpses.BukkitCorpse
                 }
-                e.viewers.forEach {
-                    if(it.name == e.player.name) return@forEach
-                    it.closeInventory()
+                if(corpse.closes.contains(e.player.uniqueId)) return
+                corpse.closes.add(e.player.uniqueId)
+                corpse.destroy()
+                e.viewers.filter { it.name != e.player.name }.forEach { p ->
+                    corpse.closes.add(p.uniqueId)
+                    p.closeInventory()
                 }
             }
-            TODO("if 문으로 만약에 누군가 시체를 닫을시 시체를 닫힘 /당한/ 사람은 인식하지 않도록 해야함")
         }
     }
 }

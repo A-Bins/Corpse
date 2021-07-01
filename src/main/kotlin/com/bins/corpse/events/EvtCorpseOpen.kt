@@ -1,6 +1,7 @@
 package com.bins.corpse.events
 
 import com.bins.corpse.Corpse
+import com.bins.corpse.structure.classes.Corpses
 import org.bukkit.Bukkit
 import org.bukkit.entity.PolarBear
 import org.bukkit.event.EventHandler
@@ -30,7 +31,7 @@ class EvtCorpseOpen : Listener {
             Corpse.instance,
             Runnable { Corpse.corpse.isRightClicks[uuid] = false }, 1
         )
-        e.player.openInventory(Corpse.corpse.corpses.stream().filter { it.bear.entityId == id }.collect(Collectors.toList())[0].inventory)
+        e.player.openInventory((Corpse.corpse.corpses.stream().filter { it.bear.entityId == id }.toArray()[0] as Corpses.BukkitCorpse).inventory)
         e.isCancelled = true
     }
 }

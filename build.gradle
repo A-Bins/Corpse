@@ -13,7 +13,7 @@ sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
 group 'com.bins.corpse'
-version '0.0.27'
+version '0.0.3'
 
 
 repositories {

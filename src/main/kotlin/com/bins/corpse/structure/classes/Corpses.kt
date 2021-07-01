@@ -26,14 +26,10 @@ class Corpses {
     val corpses = ArrayList<BukkitCorpse>()
     val isRightClicks = HashMap<UUID, Boolean>()
     fun disable(){
-        corpses.forEach {
-            it.corpse.destroy()
-        }
+        corpses.forEach { it.corpse.destroy() }
         Corpse.instance.server.worlds.forEach { w ->
-            w.getEntitiesByClass(PolarBear::class.java).forEach {
-                if (it.customName?.contains("시체") == true) {
-                    it.remove()
-                }
+            w.getEntitiesByClass(PolarBear::class.java).filter { it.customName?.contains("시체") == true }.forEach {
+                it.remove()
             }
         }
     }
@@ -42,14 +38,11 @@ class Corpses {
         Bukkit.getScheduler().runTaskTimer(Corpse.instance, Runnable {
             corpses.forEach {
 
-                val bear = it.corpse.entity.location.clone().add(
-                    Location(
-                        it.corpse.entity.world, -0.7,
-                        (-1).toDouble(), 0.toDouble()
-                    )
-                )
-                bear.pitch = 0f
-                bear.yaw = 90f
+                val bear = it.corpse.entity.location.clone().add(Location(it.corpse.entity.world, -0.7, (-1).toDouble(), 0.toDouble()).apply {
+                    pitch = 0f
+                    yaw = 90f
+                })
+
                 it.bear.teleport(bear)
             }
         }, 0, 5)
@@ -61,25 +54,16 @@ class Corpses {
                 isRightClicks.putIfAbsent(it.uniqueId, false)
             }
             corpses.forEach { corpse ->
-
                 corpse.inventory.viewers.forEach { p ->
                     p.openInventory.topInventory.contents.withIndex().forEach { (w, a) ->
                         corpse.inventory.setItem(w, a)
-                        if (corpse.hand == w) {
-                            (corpse.corpse.entity as LivingEntity).equipment!!
-                                .setItem(EquipmentSlot.HAND, a)
-                        }
                         when (w) {
-                            36 -> (corpse.corpse.entity as LivingEntity).equipment!!
-                                .setItem(EquipmentSlot.FEET, a)
-                            37 -> (corpse.corpse.entity as LivingEntity).equipment!!
-                                .setItem(EquipmentSlot.LEGS, a)
-                            38 -> (corpse.corpse.entity as LivingEntity).equipment!!
-                                .setItem(EquipmentSlot.CHEST, a)
-                            39 -> (corpse.corpse.entity as LivingEntity).equipment!!
-                                .setItem(EquipmentSlot.HEAD, a)
-                            40 -> (corpse.corpse.entity as LivingEntity).equipment!!
-                                .setItem(EquipmentSlot.OFF_HAND, a)
+                            corpse.hand -> (corpse.corpse.entity as LivingEntity).equipment!!.setItem(EquipmentSlot.HAND, a)
+                            36 -> (corpse.corpse.entity as LivingEntity).equipment!!.setItem(EquipmentSlot.FEET, a)
+                            37 -> (corpse.corpse.entity as LivingEntity).equipment!!.setItem(EquipmentSlot.LEGS, a)
+                            38 -> (corpse.corpse.entity as LivingEntity).equipment!!.setItem(EquipmentSlot.CHEST, a)
+                            39 -> (corpse.corpse.entity as LivingEntity).equipment!!.setItem(EquipmentSlot.HEAD, a)
+                            40 -> (corpse.corpse.entity as LivingEntity).equipment!!.setItem(EquipmentSlot.OFF_HAND, a)
                         }
                     }
                 }
@@ -88,6 +72,7 @@ class Corpses {
     }
 
     class BukkitCorpse(val bear: PolarBear, val corpse: NPC, val hand: Int, val handItem: ItemStack, val spawn: Location, val inventory: Inventory){
+        val closes: ArrayList<UUID> = arrayListOf()
         init {
             Corpse.corpse.corpses.add(this)
         }
@@ -117,18 +102,17 @@ class Corpses {
         }
         fun sleep() {
             val pm = ProtocolLibrary.getProtocolManager()
-            val dw = WrappedDataWatcher.getEntityWatcher(corpse.entity)
-            val packet = pm.createPacket(PacketType.Play.Server.ENTITY_METADATA)
-            val obj = WrappedDataWatcher.WrappedDataWatcherObject(
-                6,
-                WrappedDataWatcher.Registry.get(EnumWrappers.getEntityPoseClass())
-            )
-            dw.setObject(obj, EnumWrappers.EntityPose.SLEEPING.toNms())
-            packet.integers.write(0, corpse.entity.entityId)
-            packet.watchableCollectionModifier.write(0, dw.watchableObjects)
-            Bukkit.getOnlinePlayers().forEach {
-                pm.sendServerPacket(it, packet)
+            val dw = WrappedDataWatcher.getEntityWatcher(corpse.entity).apply {
+                setObject(
+                    WrappedDataWatcher.WrappedDataWatcherObject(6, WrappedDataWatcher.Registry.get(EnumWrappers.getEntityPoseClass())),
+                    EnumWrappers.EntityPose.SLEEPING.toNms()
+                )
             }
+            val packet = pm.createPacket(PacketType.Play.Server.ENTITY_METADATA).apply {
+                watchableCollectionModifier.write(0, dw.watchableObjects)
+                integers.write(0, corpse.entity.entityId)
+            }
+            Bukkit.getOnlinePlayers().forEach { pm.sendServerPacket(it, packet) }
         }
     }
 }
