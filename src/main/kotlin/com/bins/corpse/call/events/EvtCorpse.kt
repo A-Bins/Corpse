@@ -1,31 +1,22 @@
-package com.bins.corpse.events
+package com.bins.corpse.call.events
 
 import com.bins.corpse.Corpse
 import com.bins.corpse.structure.classes.Corpses
-import com.comphenix.protocol.PacketType
-import com.comphenix.protocol.ProtocolLibrary
-import com.comphenix.protocol.wrappers.EnumWrappers
-import com.comphenix.protocol.wrappers.WrappedDataWatcher
+import com.bins.corpse.structure.objects.Util.component
 import com.sk89q.worldedit.bukkit.BukkitAdapter
 import com.sk89q.worldedit.math.BlockVector3
 import com.sk89q.worldguard.WorldGuard
 import net.citizensnpcs.api.CitizensAPI
 import net.citizensnpcs.api.npc.NPC
 import org.bukkit.Bukkit
-import org.bukkit.GameMode
 import org.bukkit.Location
-import org.bukkit.Material
 import org.bukkit.entity.*
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.PlayerDeathEvent
-import org.bukkit.inventory.EquipmentSlot
-import org.bukkit.inventory.ItemStack
 import org.bukkit.scheduler.BukkitRunnable
-import java.lang.reflect.InvocationTargetException
 import java.util.ArrayList
-import java.util.stream.Collectors
 
 class EvtCorpse : Listener {
     companion object {
@@ -74,7 +65,7 @@ class EvtCorpse : Listener {
                 isSilent = true
                 isInvulnerable = true
             }
-            val inventory = Bukkit.createInventory(null, 45, "${p.name}의 시체, ${bear.entityId}").apply {
+            val inventory = Bukkit.createInventory(null, 45, "${p.name}의 시체, ${bear.entityId}".component).apply {
                 list.withIndex().forEach { (index, item) ->
                     setItem(index, item)
                 }
@@ -113,7 +104,7 @@ class EvtCorpse : Listener {
 
             corpse.corpse.data()[NPC.NAMEPLATE_VISIBLE_METADATA] = false
             Bukkit.getScheduler().runTaskLater(Corpse.instance, Runnable {
-                corpse.destroy()
+                corpse.done()
             }, (20 * 60 * 5).toLong())
         }, 5)
     }

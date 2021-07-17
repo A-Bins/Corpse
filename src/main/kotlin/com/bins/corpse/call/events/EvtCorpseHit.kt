@@ -1,4 +1,4 @@
-package com.bins.corpse.events
+package com.bins.corpse.call.events
 
 import org.bukkit.entity.EntityType
 import org.bukkit.event.EventHandler

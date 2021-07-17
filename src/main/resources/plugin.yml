@@ -1,9 +1,9 @@
 name: Corpse
-version: 0.0.26
+version: none
 main: com.bins.corpse.Corpse
-api-version: 1.16
+api-version: 1.17
 authors: [ A_bins ]
-depend: [ProtocolLib, Citizens, WorldGuard]
+depend: [ Kotlin, ProtocolLib, Citizens, WorldGuard]
 commands:
   reload-config-corpse:
 

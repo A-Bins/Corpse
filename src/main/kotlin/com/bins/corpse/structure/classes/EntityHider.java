@@ -1,4 +1,4 @@
-package com.bins.corpse;
+package com.bins.corpse.structure.classes;
 
 import static com.comphenix.protocol.PacketType.Play.Server.*;
 

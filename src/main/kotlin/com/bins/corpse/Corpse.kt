@@ -1,18 +1,17 @@
 package com.bins.corpse
 
-import com.bins.corpse.events.EvtCorpse
+import com.bins.corpse.call.commands.ReloadConfig
+import com.bins.corpse.call.events.EvtCorpse
 import com.bins.corpse.structure.classes.Corpses
 import org.bukkit.Bukkit
-import org.bukkit.Location
-import org.bukkit.entity.LivingEntity
-import org.bukkit.entity.PolarBear
-import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.plugin.java.JavaPlugin
+import org.bukkit.scheduler.BukkitScheduler
 
 
 class Corpse : JavaPlugin() {
     override fun onEnable() {
         instance = this
+        scheduler = server.scheduler
         saveDefaultConfig()
         server.pluginManager.apply {
              EvtCorpse.objects.forEach {
@@ -33,6 +32,11 @@ class Corpse : JavaPlugin() {
     }
 
     companion object {
+        lateinit var scheduler: BukkitScheduler
+            private set
+        fun Long.rt(delay: Long = 1, run: Runnable) = scheduler.runTaskTimer(instance, run, delay, this)
+        fun Long.rtAsync(delay: Long = 1, run: Runnable) = scheduler.runTaskTimerAsynchronously(instance, run, delay, this)
+        fun Long.rl(run: Runnable) = scheduler.runTaskLater(instance, run, this)
         lateinit var instance: Corpse
          private set
         val corpse = Corpses()

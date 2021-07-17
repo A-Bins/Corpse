@@ -9,14 +9,12 @@ import net.citizensnpcs.api.npc.NPC
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Location
-import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.entity.PolarBear
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
-import java.lang.reflect.InvocationTargetException
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -25,6 +23,7 @@ class Corpses {
 
     val corpses = ArrayList<BukkitCorpse>()
     val isRightClicks = HashMap<UUID, Boolean>()
+    fun find(id: Int) = corpses.filter { it.bear.entityId == id }.toTypedArray()[0]
     fun disable(){
         corpses.forEach { it.corpse.destroy() }
         Corpse.instance.server.worlds.forEach { w ->
@@ -71,12 +70,27 @@ class Corpses {
         }, 0, 1)
     }
 
-    class BukkitCorpse(val bear: PolarBear, val corpse: NPC, val hand: Int, val handItem: ItemStack, val spawn: Location, val inventory: Inventory){
-        val closes: ArrayList<UUID> = arrayListOf()
+    class BukkitCorpse(
+        val bear: PolarBear,
+        val corpse: NPC,
+        val hand: Int,
+        val handItem: ItemStack,
+        val spawn: Location,
+        val inventory: Inventory,
+        val playersInventory: HashMap<UUID, Inventory> = HashMap()
+        ) {
         init {
             Corpse.corpse.corpses.add(this)
         }
-        fun destroy() {
+        fun open(p: Player) {
+            if(!playersInventory.containsKey(p.uniqueId)) {
+                playersInventory[p.uniqueId] = inventory.apply {
+
+                }
+            }
+            p.openInventory(playersInventory[p.uniqueId]!!)
+        }
+        fun done() {
             corpse.destroy()
             bear.remove()
         }
