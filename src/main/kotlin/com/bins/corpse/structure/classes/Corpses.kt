@@ -102,10 +102,7 @@ class Corpses {
                 }
             }
 
-            if(playersInventory[p.uniqueId]!!.contents.any { it.displayName() == "§7수색 중 100%".component }) {
-                p.openInventory(inventory)
-                Bukkit.broadcastMessage("?")
-            }
+            if(playersInventory[p.uniqueId]!!.contents.any { it.itemMeta.displayName == "§7수색 중 100%" }) p.openInventory(inventory)
             else p.openInventory(playersInventory[p.uniqueId]!!)
 
         }

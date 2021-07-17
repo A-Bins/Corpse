@@ -4,19 +4,23 @@ import com.bins.corpse.Corpse
 import com.bins.corpse.Corpse.Companion.rl
 import com.bins.corpse.Corpse.Companion.rt
 import org.bukkit.Bukkit
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.player.PlayerInteractEntityEvent
+import java.util.*
 
 @Suppress("DEPRECATION")
 class EvtCorpseInventoryClick: Listener {
+
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     fun event(e: InventoryClickEvent) {
         if (e.view.title.contains("시체")) {
             if(e.currentItem?.lore?.any { it == "§f물품을 클릭시 수색합니다" || it == "§f수색 중입니다.." } == true) {
                 e.isCancelled = true
+                if(e.currentItem?.lore?.any { it == "§f수색 중입니다.." } == true) return
                 e.inventory.contents.forEach { it.lore = listOf("§f수색 중입니다..") }
                 fun search(complete: () -> Any?) {
                     if(e.whoClicked.openInventory.topInventory != e.inventory) {
