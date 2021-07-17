@@ -10,7 +10,7 @@ class ReloadConfig : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         if (!sender.isOp) return false
         Corpse.instance.reloadConfig()
-        sender.sendMessage("§a끗")
+        sender.sendMessage("§a")
         return false
     }
 }

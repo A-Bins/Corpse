@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent
 class EvtCorpseOpen : Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-    fun onRightClick(e: PlayerInteractEntityEvent) {
+    fun event(e: PlayerInteractEntityEvent) {
         val id = e.rightClicked.entityId
         val uuid = e.player.uniqueId
         fun check() = when {
@@ -21,7 +21,7 @@ class EvtCorpseOpen : Listener {
             e.rightClicked.customName == null -> false
             !Corpse.corpse.isRightClicks.containsKey(uuid) -> false
             Corpse.corpse.isRightClicks[uuid]!! -> false
-            !Corpse.corpse.corpses.stream().anyMatch { it.bear.entityId == id } -> false
+            !Corpse.corpse.corpses.any { it.bear.entityId == id } -> false
             !e.rightClicked.customName!!.contains("시체") -> false
             else -> true
         }

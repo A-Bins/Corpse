@@ -27,7 +27,7 @@ class Corpse : JavaPlugin() {
     }
 
     override fun onDisable() {
-        Bukkit.getLogger().info("§c땅님을 위한 평범하고 평범한 전쟁스러운 시체가 나도는 시체플러그인이 비활성화되써요오!!")
+        Bukkit.getLogger().info("§c평범한 시체가 나도는 시체플러그인이 활성화되씀!")
         corpse.disable()
     }
 

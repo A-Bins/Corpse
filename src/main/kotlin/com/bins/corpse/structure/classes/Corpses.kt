@@ -1,6 +1,7 @@
 package com.bins.corpse.structure.classes
 
 import com.bins.corpse.Corpse
+import com.bins.corpse.structure.objects.Util.component
 import com.comphenix.protocol.PacketType
 import com.comphenix.protocol.ProtocolLibrary
 import com.comphenix.protocol.wrappers.EnumWrappers
@@ -9,16 +10,19 @@ import net.citizensnpcs.api.npc.NPC
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
 import org.bukkit.Location
+import org.bukkit.Material
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.entity.PolarBear
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.Inventory
+import org.bukkit.inventory.InventoryView
 import org.bukkit.inventory.ItemStack
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
+@Suppress("DEPRECATION")
 class Corpses {
 
     val corpses = ArrayList<BukkitCorpse>()
@@ -77,6 +81,7 @@ class Corpses {
         val handItem: ItemStack,
         val spawn: Location,
         val inventory: Inventory,
+        val inventoryName: String,
         val playersInventory: HashMap<UUID, Inventory> = HashMap()
         ) {
         init {
@@ -84,11 +89,25 @@ class Corpses {
         }
         fun open(p: Player) {
             if(!playersInventory.containsKey(p.uniqueId)) {
-                playersInventory[p.uniqueId] = inventory.apply {
-
+                playersInventory[p.uniqueId] = Bukkit.createInventory(null, 45, inventoryName).apply {
+                    (0..44).forEach {
+                        setItem(it, ItemStack(Material.BLACK_STAINED_GLASS_PANE).apply {
+                            val meta = itemMeta.apply {
+                                displayName("§7수색 중 0%".component)
+                                lore = listOf("§f물품을 클릭시 수색합니다")
+                            }
+                            itemMeta = meta
+                        })
+                    }
                 }
             }
-            p.openInventory(playersInventory[p.uniqueId]!!)
+
+            if(playersInventory[p.uniqueId]!!.contents.any { it.displayName() == "§7수색 중 100%".component }) {
+                p.openInventory(inventory)
+                Bukkit.broadcastMessage("?")
+            }
+            else p.openInventory(playersInventory[p.uniqueId]!!)
+
         }
         fun done() {
             corpse.destroy()

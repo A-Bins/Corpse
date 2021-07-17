@@ -8,7 +8,7 @@ import org.bukkit.event.entity.EntityDamageEvent
 class EvtCorpseHit : Listener {
 
     @EventHandler
-    fun onDamage(e: EntityDamageEvent) {
+    fun event(e: EntityDamageEvent) {
         if (e.entity.type != EntityType.POLAR_BEAR)
             return
         if(e.entity.customName?.contains("시체") != true)

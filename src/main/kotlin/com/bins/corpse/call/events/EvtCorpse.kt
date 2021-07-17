@@ -20,10 +20,10 @@ import java.util.ArrayList
 
 class EvtCorpse : Listener {
     companion object {
-        val objects = arrayListOf(EvtCorpse(), EvtCorpseHit(), EvtCorpseClose(), EvtCorpseOpen())
+        val objects = arrayListOf(EvtCorpse(), EvtCorpseHit(), EvtCorpseClose(), EvtCorpseOpen(), EvtCorpseInventoryClick())
     }
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-    fun onDead(e: PlayerDeathEvent) {
+    fun event(e: PlayerDeathEvent) {
 
 
 
@@ -79,7 +79,8 @@ class EvtCorpse : Listener {
                     pitch = 0f
                     yaw = 0f
                 },
-                inventory
+                inventory,
+                "${p.name}의 시체, ${bear.entityId}"
             )
             corpse.spawn()
 
