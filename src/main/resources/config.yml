@@ -1,8 +1,11 @@
-Region-is-use?: true
+Corpse-disappearing-time: 900
+
+Region-is-use?: false
 Region-name?:
   - corpse
-
 #like is use!
+# Corpse disappearing time is Second.
+# Default -> 900 sec ( 15 min )
 #Region-is-use? : false/true
 #Region-name? :
 #- corpse

@@ -35,7 +35,7 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.17-R0.1-SNAPSHOT")
     compileOnly (group = "com.comphenix.protocol", name = "ProtocolLib", version = "4.7.0")
     compileOnly (group = "com.sk89q.worldguard", name = "worldguard-bukkit", version = "7.0.6-SNAPSHOT")
-    compileOnly (group = "net.citizensnpcs", name = "citizensapi", version = "2.0.28-SNAPSHOT")
+    compileOnly (group = "net.citizensnpcs", name = "citizens-main", version = "2.0.28-SNAPSHOT")
 }
 
 fun TaskContainer.createJar(name: String, configuration: ShadowJar.() -> Unit) {

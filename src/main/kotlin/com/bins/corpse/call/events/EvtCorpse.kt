@@ -1,6 +1,9 @@
 package com.bins.corpse.call.events
 
 import com.bins.corpse.Corpse
+import com.bins.corpse.Corpse.Companion.cancel
+import com.bins.corpse.Corpse.Companion.later
+import com.bins.corpse.Corpse.Companion.timer
 import com.bins.corpse.structure.classes.Corpses
 import com.bins.corpse.structure.objects.Util.component
 import com.sk89q.worldedit.bukkit.BukkitAdapter
@@ -15,8 +18,6 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.PlayerDeathEvent
-import org.bukkit.scheduler.BukkitRunnable
-import java.util.ArrayList
 
 class EvtCorpse : Listener {
     companion object {
@@ -28,21 +29,20 @@ class EvtCorpse : Listener {
 
 
         val p = e.entity
-        val loc = Location(p.world, p.location.x, p.location.y, p.location.z, 0f, 0f)
+        val loc = Location(p.world, p.location.x, p.location.y, p.location.z, 0f, 0f).toCenterLocation()
         fun check(): Boolean {
-
             if (Corpse.instance.config.getBoolean("Region-is-use?")) {
-                val container = WorldGuard.getInstance().platform.regionContainer
-                val regionManager = container[BukkitAdapter.adapt(p.world)]
-                val w = BlockVector3.at(loc.x, loc.y, loc.z)
-                val regionSet = regionManager!!.getApplicableRegions(w)
-                val arrayList = ArrayList<String>()
-                for (`$` in regionSet.regions) {
-                    arrayList.add(`$`.id)
-                }
-                if (!arrayList.containsAll(Corpse.instance.config.getStringList("Region-name?"))) {
-                    return false
-                }
+
+                WorldGuard.getInstance()
+                    .platform
+                    .regionContainer[BukkitAdapter.adapt(p.world)]!!
+                    .getApplicableRegions(BlockVector3.at(loc.x, loc.y, loc.z))
+                    .regions.map {
+                        it.id
+                    }.forEach { a -> Corpse.instance.config.getStringList("Region-name?").forEach {
+                        if (a == it) { return true }
+                    } }
+                return false
             }
             return true
         }
@@ -52,10 +52,11 @@ class EvtCorpse : Listener {
         val itemInHand = p.inventory.itemInMainHand
         p.inventory.clear()
         e.drops.clear()
-        Bukkit.getScheduler().runTaskLater(Corpse.instance, Runnable {
-            val bearLoc = loc.clone().add(Location(loc.world, -0.7, (-1).toDouble(), 0.toDouble())).apply {
+
+        5L later {
+            val bearLoc = loc.clone().add(Location(loc.world, 0.0, -1.0, 0.8)).apply {
                 pitch = 0f
-                yaw = 90f
+                yaw = 10f
             }
             val bear = p.world.spawn(bearLoc, PolarBear::class.java).apply {
                 setAI(false)
@@ -65,7 +66,7 @@ class EvtCorpse : Listener {
                 isSilent = true
                 isInvulnerable = true
             }
-            val inventory = Bukkit.createInventory(null, 45, "${p.name}의 시체, ${bear.entityId}".component).apply {
+            val inventory = Bukkit.createInventory(null, 45, "§f${p.name}의 시체, ${bear.uniqueId}".component).apply {
                 list.withIndex().forEach { (index, item) ->
                     setItem(index, item)
                 }
@@ -77,36 +78,33 @@ class EvtCorpse : Listener {
                 itemInHand,
                 bearLoc.add(0.0, 1.0, 0.0).apply {
                     pitch = 0f
-                    yaw = 0f
+                    yaw = 90f
                 },
                 inventory,
-                "${p.name}의 시체, ${bear.entityId}"
+//                "§f${p.name}의 시체, ${bear.entityId}"
             )
             corpse.spawn()
 
 
-            Bukkit.getScheduler().runTaskLater(Corpse.instance, Runnable {
+            5L later {
                 corpse.equip()
-            }, 5)
+            }
 
-            val task = object : BukkitRunnable() {
-                override fun run() {
-                    if (corpse.corpse.entity.pose != Pose.SLEEPING) {
-                        corpse.sleep()
-                        corpse.equip()
-                        cancel()
-                    }
+            var task = 0
+            task = (1L timer {
+                if (corpse.corpse.entity.pose != Pose.SLEEPING) {
+                    corpse.sleep()
+                    corpse.equip()
+                    cancel(task)
                 }
-            }.runTaskTimer(Corpse.instance,0, 1).taskId
+            }).taskId
 
-            Corpse.instance.server.scheduler.runTaskLater(Corpse.instance, Runnable {
-                Corpse.instance.server.scheduler.cancelTask(task)
-            }, (20 * 5).toLong())
+            (20L * 5L) later { Corpse.instance.server.scheduler.cancelTask(task) }
 
             corpse.corpse.data()[NPC.NAMEPLATE_VISIBLE_METADATA] = false
-            Bukkit.getScheduler().runTaskLater(Corpse.instance, Runnable {
-                corpse.done()
-            }, (20 * 60 * 5).toLong())
-        }, 5)
+
+            (20L * 60 * Corpse.instance.config.getInt("Corpse-disappearing-time")) later { corpse.done() }
+        }
     }
+
 }

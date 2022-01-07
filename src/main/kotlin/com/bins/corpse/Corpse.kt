@@ -20,23 +20,27 @@ class Corpse : JavaPlugin() {
         }
         getCommand("reload-config-corpse")!!.setExecutor(ReloadConfig())
 
-        Bukkit.getLogger().info("§a평범한 시체가 나도는 시체플러그인이 활성화되씀!")
+        Bukkit.getLogger().info("§6[ Corpse ] made by A_Bins ( Bins#1004 current #3206 )")
 
         corpse.teleport()
         corpse.schedule()
     }
 
     override fun onDisable() {
-        Bukkit.getLogger().info("§c평범한 시체가 나도는 시체플러그인이 활성화되씀!")
+        Bukkit.getLogger().info("§7[ Corpse ] made by A_Bins ( Bins#1004 current #3206 )")
         corpse.disable()
     }
 
     companion object {
         lateinit var scheduler: BukkitScheduler
             private set
-        fun Long.rt(delay: Long = 1, run: Runnable) = scheduler.runTaskTimer(instance, run, delay, this)
-        fun Long.rtAsync(delay: Long = 1, run: Runnable) = scheduler.runTaskTimerAsynchronously(instance, run, delay, this)
-        fun Long.rl(run: Runnable) = scheduler.runTaskLater(instance, run, this)
+        fun cancel(id: Int) = instance.server.scheduler.cancelTask(id)
+        infix fun Long.timer(run: Runnable) = scheduler.runTaskTimer(instance, run, 1, this)
+//        infix fun Long.timerAsync(run: Runnable) = scheduler.runTaskTimerAsynchronously(instance, run, 1, this)
+//        fun taskAsync(run: Runnable) = scheduler.runTaskAsynchronously(instance, run)
+//        fun task(run: Runnable) = scheduler.runTask(instance, run)
+        infix fun Long.later(run: Runnable) = scheduler.runTaskLater(instance, run, this)
+//        infix fun Long.laterAsync(run: Runnable) = scheduler.runTaskLaterAsynchronously(instance, run, this)
         lateinit var instance: Corpse
          private set
         val corpse = Corpses()
