@@ -1,6 +1,6 @@
-package com.bins.corpse.call.commands
+package kr.abins.corpse.call.commands
 
-import com.bins.corpse.Corpse
+import kr.abins.corpse.Corpse
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
