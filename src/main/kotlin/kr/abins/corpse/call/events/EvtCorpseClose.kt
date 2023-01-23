@@ -1,7 +1,7 @@
-package com.bins.corpse.call.events
+package kr.abins.corpse.call.events
 
-import com.bins.corpse.Corpse
-import com.bins.corpse.Corpse.Companion.later
+import kr.abins.corpse.Corpse
+import kr.abins.corpse.Corpse.Companion.later
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryCloseEvent
@@ -14,8 +14,8 @@ class EvtCorpseClose : Listener{
         if (e.view.title.contains("시체")) {
             val nullSize = e.view.topInventory.contents.filter { it == null }.size
             if (nullSize == 45) {
-                val id = e.view.title.split(", ").toTypedArray()[1]
-                Corpse.corpse.find(UUID.fromString(id))?.done()
+                val id = e.view.title.split(", ").toTypedArray()[1].toInt()
+                Corpse.corpse.find(id)?.done()
                 1L later {
                     e.inventory.close()
                 }

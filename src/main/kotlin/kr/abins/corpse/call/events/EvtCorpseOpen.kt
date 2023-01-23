@@ -1,6 +1,6 @@
-package com.bins.corpse.call.events
+package kr.abins.corpse.call.events
 
-import com.bins.corpse.Corpse
+import kr.abins.corpse.Corpse
 import org.bukkit.entity.PolarBear
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -12,7 +12,7 @@ class EvtCorpseOpen : Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     fun event(e: PlayerInteractEntityEvent) {
-        val id = e.rightClicked.uniqueId
+        val id = e.rightClicked.entityId
         fun check() = when {
             e.hand != EquipmentSlot.HAND  -> false
             e.rightClicked !is PolarBear -> false

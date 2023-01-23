@@ -1,4 +1,4 @@
-package com.bins.corpse.call.events
+package kr.abins.corpse.call.events
 
 import org.bukkit.entity.EntityType
 import org.bukkit.event.EventHandler
@@ -11,7 +11,7 @@ class EvtCorpseHit : Listener {
     fun event(e: EntityDamageEvent) {
         if (e.entity.type != EntityType.POLAR_BEAR)
             return
-        if(e.entity.customName?.contains("시체") != true)
+        if (e.entity.customName?.contains("시체") != true)
             return
         e.isCancelled = true
     }

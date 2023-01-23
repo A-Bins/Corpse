@@ -3,6 +3,7 @@ Corpse-disappearing-time: 900
 Region-is-use?: false
 Region-name?:
   - corpse
+enable: false
 #like is use!
 # Corpse disappearing time is Second.
 # Default -> 900 sec ( 15 min )
